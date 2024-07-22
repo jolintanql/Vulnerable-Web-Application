@@ -25,7 +25,8 @@ pipeline {
                                 -Dsonar.projectKey=OWASP \
                                 -Dsonar.sources=. \
                                 -Dsonar.host.url=http://192.168.1.82:9000 \
-                                -Dsonar.token=\$SONAR_TOKEN
+                                -Dsonar.login=\$SONAR_TOKEN \
+                                -X
                             """
                         }
                     }
