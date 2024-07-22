@@ -13,12 +13,14 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    // Print the path of SonarQube scanner
                     sh "echo SonarQube Scanner Path: ${scannerHome}"
                     
                     withSonarQubeEnv('SonarQube') {
                         withCredentials([string(credentialsId: 'SonarQube-Token', variable: 'SONAR_TOKEN')]) {
                             sh """
                                 export PATH=\$PATH:/usr/bin  # Add the Node.js and npm path here
+                                echo \$PATH
                                 node -v
                                 npm -v
                                 ${scannerHome}/bin/sonar-scanner \
