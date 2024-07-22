@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Code Quality Check via SonarQube') {
             environment {
-                SONAR_TOKEN = credentials('sq') // Reference the credentials ID for SonarQube token
+                SONAR_TOKEN = credentials('SonarQube-Token') // Reference the credentials ID for SonarQube token
             }
             steps {
                 script {
