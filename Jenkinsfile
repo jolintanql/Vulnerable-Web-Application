@@ -1,11 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'my-jenkins-with-node:latest'
-            reuseNode true  // Reuse the node where the Docker image is built
-            args '-u root:root'  // Use root user to ensure Node.js is accessible
-        }
-    }
+    agent any
     stages {
         stage('Checkout') {
             steps {
