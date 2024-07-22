@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'my-jenkins-with-node:latest'
+            args '-u root:root'  // Use root user to ensure Node.js is accessible
+        }
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -9,7 +14,7 @@ pipeline {
         stage('Code Quality Check via SonarQube') {
             environment {
                 // Reference the credentials ID for SonarQube token
-                SONAR_TOKEN = credentials('SonarQube-Token') 
+                SONAR_TOKEN = credentials('SonarQube-Token')
             }
             steps {
                 script {
@@ -20,6 +25,8 @@ pipeline {
                     withSonarQubeEnv('SonarQube') {
                         withCredentials([string(credentialsId: 'SonarQube-Token', variable: 'SONAR_TOKEN')]) {
                             sh """
+                                node -v
+                                npm -v
                                 ${scannerHome}/bin/sonar-scanner \
                                 -Dsonar.projectKey=OWASP \
                                 -Dsonar.sources=. \
