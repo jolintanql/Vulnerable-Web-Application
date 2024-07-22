@@ -19,7 +19,7 @@ pipeline {
     }
     post {
         always {
-            recordIssues enabledForFailure: true, tool: sonarQube(), name: 'SonarQube', pattern: '**/sonar-reports/*.xml'
+            recordIssues enabledForFailure: true, tools: [sonarQube()]
         }
     }
 }
